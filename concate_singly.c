@@ -64,12 +64,6 @@ void create_2nd_list()
     int value;
     struct node *p, *temp;
     p = malloc(sizeof(struct node));
-    
-    if (p == NULL) {
-        printf("Memory allocation failed!\n");
-        return;
-    }
-
     printf("enter any value of new linked list: ");
     scanf("%d",&value);
     p->data=value;
