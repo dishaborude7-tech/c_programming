@@ -63,7 +63,6 @@ void create_node()
 struct node *mid_point_address()
 {
     struct node *odd, *even;
-
     if(START==NULL)
     {
         printf("The list is empty\n");
@@ -73,18 +72,19 @@ struct node *mid_point_address()
     {
         odd=START;
         even=START;
-
+        
         while(even!=NULL && even->next!=NULL)
         {
             odd=odd->next;
             even=even->next->next;
         }
     }
-
+    
     return odd;
 }
 
 // Function to reverse the singly linked list 
+
 void reverse_nodes()
  {
     int temp,len=1,i;
@@ -103,6 +103,7 @@ void reverse_nodes()
         {
             mid=mid->next;//move mid pointer to its position
         }
+        //logic for swapping the data of first and last node of the linked list
         temp=first->data;
         first->data=last->data;
         last->data=temp;
