@@ -6,7 +6,7 @@ struct node
     struct node * next;
 };
 
-struct node * START=NULL;
+struct node * START=NULL,*START_temp=NULL;
 
 void display()
 {
@@ -57,6 +57,38 @@ void create_node()
             temp=temp->next;
         }
         // Link the last node to the new node p
+        temp->next=p;//logic of inserting a new node at the end of the linked list
+    }
+}
+
+void create_2nd_list()
+{
+    int value;
+    struct node *p, *temp;
+    p = malloc(sizeof(struct node));
+    
+    if (p == NULL) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+
+    printf("enter any value of new linked list: ");
+    scanf("%d",&value);
+    p->data=value;
+    p->next=NULL;
+
+    if (START_temp==NULL)
+    {
+        START_temp=p;
+    }
+    else
+    {
+        temp=START_temp;
+        // Traverse until temp points to the LAST node
+        while(temp->next!=NULL)
+        {
+            temp=temp->next;
+        }
         temp->next=p;//logic of inserting a new node at the end of the linked list
     }
 }
@@ -304,11 +336,50 @@ void mid_point()
     printf("the middle point data in  list is: %d\n",odd->data);
 }
 
+void concate()
+{   int size1,size2;
+    struct node *temp;
+    printf("enter the size of first linked list:");
+    scanf("%d",&size1);
+    while(size1>0)
+    {
+        create_node();
+        size1--;
+    }
+    printf("1st linked list created successfully\n");
+    display();
+    printf("\nenter the size of second linked list:");
+    scanf("%d",&size2);
+    while(size2>0)
+    {
+        create_2nd_list();
+        size2--;
+    }
+    // Concatenate the two lists at the end of 1st singly linked list which is pointed by START and 2nd singly linked list which is pointed by START_temp
+    if(START==NULL)
+    {
+        START=START_temp;
+    }
+    else
+    {
+        temp=START;
+        while(temp->next!=NULL)// Traverse until pointer stops at the last node of the first linked list
+        {
+            temp=temp->next;
+        }
+        temp->next=START_temp;// Link the last node of the first list to the head of the second list
+    }
+    START_temp=NULL;// Reset START_temp after concatenation to NULL
+    printf("the new list is:");
+    display();
+
+}
+
 int main()
 {
     int ch,size,value;
     printf("======linked list operations=====");
-    printf("\n1.create node\n2.insert at first\n3.insert at last\n4.delete at first\n5.delete at last\n6.display\n7.count nodes\n8.sum nodes\n9.minimum node\n10.maximum node\n11.insert at the given position\n12.delete at the given position\n13.mid point\n14.exit");
+    printf("\n1.create node\n2.insert at first\n3.insert at last\n4.delete at first\n5.delete at last\n6.display\n7.count nodes\n8.sum nodes\n9.minimum node\n10.maximum node\n11.insert at the given position\n12.delete at the given position\n13.mid point\n14.create 2nd list\n15.concate lists\n16.exit");
     while(1)
     {
         printf("\n enter your choice:");
@@ -365,6 +436,18 @@ int main()
                 mid_point();
                 break;
             case 14:
+                printf("enter the size of second linked list:");
+                scanf("%d",&size);
+                while(size>0)
+                {
+                    create_2nd_list();
+                    size--;
+                }
+                break;
+            case 15:
+                concate();
+                break;
+            case 16:
                 exit(0);
             default:
                 printf("invalid choice");
