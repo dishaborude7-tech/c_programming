@@ -33,27 +33,33 @@ void create_node()
     int value;
     struct node *p, *temp;
     p = malloc(sizeof(struct node));
+    
+    if (p == NULL) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+
     printf("enter any value of linked list: ");
     scanf("%d",&value);
     p->data=value;
     p->next=NULL;
-    if(START==NULL)
+
+    if (START==NULL)
     {
         START=p;
     }
     else
     {
         temp=START;
-        while(temp!=NULL)
+        // Traverse until temp points to the LAST node
+        while(temp->next!=NULL)
         {
             temp=temp->next;
         }
-        temp->next=p;
+        // Link the last node to the new node p
+        temp->next=p;//logic of inserting a new node at the end of the linked list
     }
-
-    
 }
-
 
 void insert_1st()
 
