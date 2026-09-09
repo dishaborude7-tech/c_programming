@@ -518,7 +518,7 @@ int main()
                 }
             }
             break;
-        case 9:
+        case 8:// exit
             exit(0);
         default:
             printf("invalid choice\n");
