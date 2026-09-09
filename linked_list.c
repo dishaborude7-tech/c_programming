@@ -401,20 +401,20 @@ void reverse_nodes()
 
 int main()
 {
-    struct node *mid;
+    
     int ch, size, value;
-    printf("======linked list operations=====");
-    printf("\n1.create node\n2.insert at first\n3.insert at last\n4.delete at first\n5.delete at last\n6.display\n7.count nodes\n8.sum nodes\n9.minimum node\n10.maximum node\n11.insert at the given position\n12.delete at the given position\n13.mid point\n14.create 2nd list\n15.concate lists\n16.reverse list\n17.exit");
+    printf("\n======linked list operations=====\n");
+    printf("1.Create linked list\n2.Display linked list\n3.Reverse linked list\n4.Concatenate lists\n5.Insert node\n6.Delete node\n7.Node management\n8.Exit");
     while (1)
     {
-        printf("\n enter your choice:");
+        printf("\n Enter your choice:");
         scanf("%d", &ch);
         switch (ch)
         {
-        case 1:
+        case 1:// create linked list
         {
 
-            printf("enter the size of linked list:");
+            printf("\nEnter the size of linked list:");
             scanf("%d", &size);
             while (size > 0)
             {
@@ -423,67 +423,89 @@ int main()
             }
             break;
         }
-        case 2:
-            insert_1st();
-            break;
-        case 3:
-
-            insert_last();
-            break;
-        case 4:
-            delete_1st();
-            break;
-        case 5:
-            delete_last();
-            break;
-        case 6:
+        case 2:// display linked list
             display();
             break;
-        case 7:
-            count_nodes();
-            break;
-        case 8:
-            sum_nodes();
-            break;
-        case 9:
-            min_node();
-            break;
-        case 10:
-            max_node();
-            break;
-        case 11:
-            insert_at_position();
-            break;
-        case 12:
-            delete_at_position();
-            break;
-        case 13:
-            mid=mid_point_address();
-            printf("the mid point value is: %d", mid->data);
-            break;
-        case 14:
-            printf("enter the size of second linked list:");
-            scanf("%d", &size);
-            while (size > 0)
-            {
-                create_2nd_list();
-                size--;
-            }
-            break;
-        case 15:
-            concate();
-            break;
-        case 16:
+        case 3:// reverse linked list
             printf("Original linked list:\n");
             display();
             reverse_nodes();
-            printf("\nReversed linked list:\n");
+            printf("Reversed linked list:\n");
             display();
             break;
-        case 17:
+        case 4:// concatenate lists
+            concate();
+            break;
+        case 5:// insert node
+            printf("\n======:INSERT OPERATIONS:======\n");
+            printf("1.Insert at first\n2.Insert at last\n3.Insert at position");
+            printf("\nEnter your choice for insertion:");
+            scanf("%d", &ch);
+            switch (ch)
+            {
+                case 1:
+                    insert_1st();
+                    break;
+                case 2:
+                    insert_last();
+                    break;
+                case 3:
+                    insert_at_position();
+                    break;
+                default:
+                    printf("invalid choice\n");
+            }
+            break;
+        case 6:// delete node
+            printf("\n======:DELETE OPERATIONS:======\n");
+            printf("1.Delete at first\n2.Delete at last\n3.Delete at position");
+            printf("\n Enter your choice for deletion:");
+            scanf("%d", &ch);
+            switch (ch)
+            {
+            case 1:
+                delete_1st();
+                break;
+            case 2:
+                delete_last();
+                break;
+            case 3:
+                delete_at_position();
+                break;
+            default:
+                printf("invalid choice\n");
+            }
+            break;
+        case 7:// node management
+            printf("\n======:NODE MANAGEMENT OPERATIONS:======\n");
+            printf("1.Count nodes\n2.Sum of nodes\n3.Minimum node\n4.Maximum node\n5.Mid point address");
+            printf("\nEnter your choice for node management:");
+            scanf("%d", &ch);
+            switch (ch)
+            {
+            case 1:
+                count_nodes();
+                break;
+            case 2:
+                sum_nodes();
+                break;
+            case 3:
+                min_node();
+                break;
+            case 4:
+                max_node();
+                break;
+            case 5:
+                printf("the mid point is:%d\n", mid_point_address()->data);
+                break;
+            default:
+                printf("invalid choice\n");
+            }
+            break;
+        case 8:
             exit(0);
         default:
-            printf("invalid choice");
+            printf("invalid choice\n");
         }
     }
     return 0;
