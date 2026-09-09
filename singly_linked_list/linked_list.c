@@ -6,9 +6,9 @@ struct node
     struct node *next;
 };
 
-struct node *START = NULL, *START_temp = NULL;
+struct node *START = NULL, *START_COPY = NULL;
 
-void display()
+void display_og()
 {
     struct node *temp;
     if (START == NULL)
@@ -25,6 +25,38 @@ void display()
         }
         printf("%d\t", temp->data);
     }
+}
+
+void display_copy()
+{
+    struct node *temp;
+    if (START_COPY==NULL)
+    {
+        printf("linked list is empty");
+    }
+    else
+    {
+        temp=START_COPY;
+        while(temp->next!=NULL)
+        {
+            printf("%d\t",temp->data);
+            temp=temp->next;
+        }
+        printf("%d\t",temp->data);
+    }
+}
+
+int len_list()
+{
+    struct node *t;
+    int count=0;
+    t=START;
+    while(t!=NULL)
+    {
+        count++;
+        t=t->next;
+    }
+    return count;
 }
 
 void create_node()
@@ -65,9 +97,9 @@ void create_2nd_list()
 {
     int value;
     struct node *p, *temp;
-    p = malloc(sizeof(struct node));
+    p=malloc(sizeof(struct node));
 
-    if (p == NULL)
+    if(p==NULL)
     {
         printf("Memory allocation failed!\n");
         return;
@@ -75,22 +107,22 @@ void create_2nd_list()
 
     printf("enter any value of new linked list: ");
     scanf("%d", &value);
-    p->data = value;
-    p->next = NULL;
+    p->data=value;
+    p->next=NULL;
 
-    if (START_temp == NULL)
+    if (START_COPY==NULL)
     {
-        START_temp = p;
+        START_COPY=p;
     }
     else
     {
-        temp = START_temp;
+        temp=START_COPY;
         // Traverse until temp points to the LAST node
-        while (temp->next != NULL)
+        while (temp->next!=NULL)
         {
-            temp = temp->next;
+            temp=temp->next;
         }
-        temp->next = p; // logic of inserting a new node at the end of the linked list
+        temp->next=p; // logic of inserting a new node at the end of the linked list
     }
 }
 
@@ -106,7 +138,7 @@ void insert_1st()
     p->next = START;
     START = p;
     printf("the new list is:");
-    display();
+    display_og();
 }
 
 void insert_last()
@@ -131,7 +163,7 @@ void insert_last()
         }
         temp->next = p;
         printf("the new list is:");
-        display();
+        display_og();
     }
 }
 
@@ -292,7 +324,7 @@ void insert_at_position()
         t->next = p;
     }
     printf("the new list is:");
-    display();
+    display_og();
 }
 
 void delete_at_position()
@@ -332,6 +364,34 @@ struct node *mid_point_address()
     return odd;
 }
 
+void copy_list()
+{
+    struct node *copy,*og=START,*temp;
+    int len=len_list();
+    while(len>0)
+    {
+        copy=malloc(sizeof(struct node));
+        copy->data=og->data;
+        copy->next=NULL;
+        if(START_COPY==NULL)
+        {
+            START_COPY=copy;
+        }
+        else
+        {
+            temp=START_COPY;
+            while(temp->next!=NULL)
+            {
+                temp=temp->next;
+            }
+            temp->next=copy;
+        }
+        len--;
+        og=og->next;
+    }
+
+}
+
 void concate()
 {
     int size1, size2;
@@ -344,7 +404,7 @@ void concate()
         size1--;
     }
     printf("1st linked list created successfully\n");
-    display();
+    display_og();
     printf("\nenter the size of second linked list:");
     scanf("%d", &size2);
     while (size2 > 0)
@@ -353,35 +413,36 @@ void concate()
         size2--;
     }
     // Concatenate the two lists at the end of 1st singly linked list which is pointed by START and 2nd singly linked list which is pointed by START_temp
-    if (START == NULL)
+    if (START==NULL)
     {
-        START = START_temp;
+        START=START_COPY;
     }
     else
     {
-        temp = START;
-        while (temp->next != NULL) // Traverse until pointer stops at the last node of the first linked list
+        temp=START;
+        while(temp->next!=NULL) // Traverse until pointer stops at the last node of the first linked list
         {
-            temp = temp->next;
+            temp=temp->next;
         }
-        temp->next = START_temp; // Link the last node of the first list to the head of the second list
+        temp->next=START_COPY; // Link the last node of the first list to the head of the second list
     }
-    START_temp = NULL; // Reset START_temp after concatenation to NULL
+    START_COPY=NULL; // Reset START_COPY after concatenation to NULL
     printf("the new list is:");
-    display();
+    display_og();
 }
 
 void reverse_nodes()
 {
     int temp, len = 1, i;
     struct node *first, *last, *mid;
-    last = START;
+    copy_list(); // create a copy of the original linked list to avoid losing data during reversal
+    last = START_COPY; // stop at the last node of the linked list
     while (last->next != NULL) // stop at the last node of the linked list
     {
         len++;
         last = last->next;
     }
-    first = START;             // stop at the first node of the linked list
+    first = START_COPY;             // stop at the first node of the linked list
     mid = mid_point_address(); // stop at the middle node of the linked list
     for (i = 0; i < len / 2; i++)
     {
@@ -407,7 +468,7 @@ int main()
     while (1)
     {
         printf("\n======linked list operations=====\n");
-        printf("1.Create linked list\n2.Display linked list\n3.Reverse linked list\n4.Concatenate lists\n5.Insert node\n6.Delete node\n7.Node management\n8.Exit");
+        printf("1.Create linked list\n2.display_og linked list\n3.Reverse linked list\n4.Concatenate lists\n5.Insert node\n6.Delete node\n7.Node management\n8.Exit");
         printf("\n Enter your choice:");
         scanf("%d", &ch);
         switch (ch)
@@ -424,15 +485,15 @@ int main()
             }
             break;
         }
-        case 2:// display linked list
-            display();
+        case 2:// display_og linked list
+            display_og();
             break;
         case 3:// reverse linked list
             printf("Original linked list:\n");
-            display();
+            display_og();
             reverse_nodes();
             printf("Reversed linked list:\n");
-            display();
+            display_copy();
             break;
         case 4:// concatenate lists
             concate();
@@ -463,30 +524,30 @@ int main()
             }
             break;
         case 6:// delete node
-        while (1)
-        {
-            printf("\n======:DELETE OPERATIONS:======\n");
-            printf("1.Delete at first\n2.Delete at last\n3.Delete at position\n4.Back to main menu");
-            printf("\n Enter your choice for deletion:");
-            scanf("%d", &ch);
-            switch (ch)
+            while (1)
             {
-                case 1:
-                    delete_1st();
-                    break;
-                case 2:
-                    delete_last();
-                    break;
-                case 3:
-                    delete_at_position();
-                    break;
-                case 4:
-                    goto main_menu;
-                default:
-                    printf("invalid choice\n");
+                printf("\n======:DELETE OPERATIONS:======\n");
+                printf("1.Delete at first\n2.Delete at last\n3.Delete at position\n4.Back to main menu");
+                printf("\n Enter your choice for deletion:");
+                scanf("%d", &ch);
+                switch (ch)
+                {
+                    case 1:
+                        delete_1st();
+                        break;
+                    case 2:
+                        delete_last();
+                        break;
+                    case 3:
+                        delete_at_position();
+                        break;
+                    case 4:
+                        goto main_menu;
+                    default:
+                        printf("invalid choice\n");
+                }
             }
-        }
-        break;
+            break;
         case 7:// node management
             while (1)
             {
@@ -520,6 +581,7 @@ int main()
             break;
         case 8:// exit
             exit(0);
+            break;
         default:
             printf("invalid choice\n");
         }
