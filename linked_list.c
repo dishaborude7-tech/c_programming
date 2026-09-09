@@ -441,7 +441,7 @@ int main()
             while (1)
             {
                 printf("\n======:INSERT OPERATIONS:======\n");
-                printf("1.Insert at first\n2.Insert at last\n3.Insert at position");
+                printf("1.Insert at first\n2.Insert at last\n3.Insert at position\n4.Back to main menu");
                 printf("\nEnter your choice for insertion:");
                 scanf("%d", &ch);
                 switch (ch)
@@ -466,7 +466,7 @@ int main()
         while (1)
         {
             printf("\n======:DELETE OPERATIONS:======\n");
-            printf("1.Delete at first\n2.Delete at last\n3.Delete at position");
+            printf("1.Delete at first\n2.Delete at last\n3.Delete at position\n4.Back to main menu");
             printf("\n Enter your choice for deletion:");
             scanf("%d", &ch);
             switch (ch)
