@@ -30,31 +30,31 @@ void display_og()
 void display_copy()
 {
     struct node *temp;
-    if (START_COPY==NULL)
+    if (START_COPY == NULL)
     {
         printf("linked list is empty");
     }
     else
     {
-        temp=START_COPY;
-        while(temp->next!=NULL)
+        temp = START_COPY;
+        while (temp->next != NULL)
         {
-            printf("%d\t",temp->data);
-            temp=temp->next;
+            printf("%d\t", temp->data);
+            temp = temp->next;
         }
-        printf("%d\t",temp->data);
+        printf("%d\t", temp->data);
     }
 }
 
 int len_list()
 {
     struct node *t;
-    int count=0;
-    t=START;
-    while(t!=NULL)
+    int count = 0;
+    t = START;
+    while (t != NULL)
     {
         count++;
-        t=t->next;
+        t = t->next;
     }
     return count;
 }
@@ -97,9 +97,9 @@ void create_2nd_list()
 {
     int value;
     struct node *p, *temp;
-    p=malloc(sizeof(struct node));
+    p = malloc(sizeof(struct node));
 
-    if(p==NULL)
+    if (p == NULL)
     {
         printf("Memory allocation failed!\n");
         return;
@@ -107,22 +107,22 @@ void create_2nd_list()
 
     printf("enter any value of new linked list: ");
     scanf("%d", &value);
-    p->data=value;
-    p->next=NULL;
+    p->data = value;
+    p->next = NULL;
 
-    if (START_COPY==NULL)
+    if (START_COPY == NULL)
     {
-        START_COPY=p;
+        START_COPY = p;
     }
     else
     {
-        temp=START_COPY;
+        temp = START_COPY;
         // Traverse until temp points to the LAST node
-        while (temp->next!=NULL)
+        while (temp->next != NULL)
         {
-            temp=temp->next;
+            temp = temp->next;
         }
-        temp->next=p; // logic of inserting a new node at the end of the linked list
+        temp->next = p; // logic of inserting a new node at the end of the linked list
     }
 }
 
@@ -366,30 +366,29 @@ struct node *mid_point_address()
 
 void copy_list()
 {
-    struct node *copy,*og=START,*temp;
-    int len=len_list();
-    while(len>0)
+    struct node *copy, *og = START, *temp;
+    int len = len_list();
+    while (len > 0)
     {
-        copy=malloc(sizeof(struct node));
-        copy->data=og->data;
-        copy->next=NULL;
-        if(START_COPY==NULL)
+        copy = malloc(sizeof(struct node));
+        copy->data = og->data;
+        copy->next = NULL;
+        if (START_COPY == NULL)
         {
-            START_COPY=copy;
+            START_COPY = copy;
         }
         else
         {
-            temp=START_COPY;
-            while(temp->next!=NULL)
+            temp = START_COPY;
+            while (temp->next != NULL)
             {
-                temp=temp->next;
+                temp = temp->next;
             }
-            temp->next=copy;
+            temp->next = copy;
         }
         len--;
-        og=og->next;
+        og = og->next;
     }
-
 }
 
 void concate()
@@ -413,20 +412,20 @@ void concate()
         size2--;
     }
     // Concatenate the two lists at the end of 1st singly linked list which is pointed by START and 2nd singly linked list which is pointed by START_temp
-    if (START==NULL)
+    if (START == NULL)
     {
-        START=START_COPY;
+        START = START_COPY;
     }
     else
     {
-        temp=START;
-        while(temp->next!=NULL) // Traverse until pointer stops at the last node of the first linked list
+        temp = START;
+        while (temp->next != NULL) // Traverse until pointer stops at the last node of the first linked list
         {
-            temp=temp->next;
+            temp = temp->next;
         }
-        temp->next=START_COPY; // Link the last node of the first list to the head of the second list
+        temp->next = START_COPY; // Link the last node of the first list to the head of the second list
     }
-    START_COPY=NULL; // Reset START_COPY after concatenation to NULL
+    START_COPY = NULL; // Reset START_COPY after concatenation to NULL
     printf("the new list is:");
     display_og();
 }
@@ -435,14 +434,14 @@ void reverse_nodes()
 {
     int temp, len = 1, i;
     struct node *first, *last, *mid;
-    copy_list(); // create a copy of the original linked list to avoid losing data during reversal
-    last = START_COPY; // stop at the last node of the linked list
+    copy_list();               // create a copy of the original linked list to avoid losing data during reversal
+    last = START_COPY;         // stop at the last node of the linked list
     while (last->next != NULL) // stop at the last node of the linked list
     {
         len++;
         last = last->next;
     }
-    first = START_COPY;             // stop at the first node of the linked list
+    first = START_COPY;        // stop at the first node of the linked list
     mid = mid_point_address(); // stop at the middle node of the linked list
     for (i = 0; i < len / 2; i++)
     {
@@ -460,20 +459,51 @@ void reverse_nodes()
     }
 }
 
+void palindrome()
+{
+    int f = 0;
+    struct node *temp, *og = START;
+    printf("h1");
+    reverse_nodes(); // reverse_node create reverse in START_COPY
+    printf("h2");
+    temp = START_COPY;
+    while (og->next != NULL)
+    {
+        printf("h3");
+        if (og->data == temp->data)
+        {
+            printf("h4");
+            og->next;
+            temp->next;
+        }
+        else
+        {   printf("h5");
+            f = 1;
+            printf("The list is not palindrom\n");
+            break;
+        }
+    }
+    printf("h6");
+    if (f == 0)
+    {   printf("h7");
+        printf("The linked list is palindrom");
+    }
+}
+
 int main()
 {
-    
+
     int ch, size, value;
-    main_menu:
+main_menu:
     while (1)
     {
         printf("\n======linked list operations=====\n");
-        printf("1.Create linked list\n2.display_og linked list\n3.Reverse linked list\n4.Concatenate lists\n5.Insert node\n6.Delete node\n7.Node management\n8.Exit");
+        printf("1.Create linked list\n2.display linked list\n3.Reverse linked list\n4.Concatenate lists\n5.Check Palindrom\n6.Insert node\n7.Delete node\n8.Node management\n9.Exit");
         printf("\n Enter your choice:");
         scanf("%d", &ch);
         switch (ch)
         {
-        case 1:// create linked list
+        case 1: // create linked list
         {
 
             printf("\nEnter the size of linked list:");
@@ -485,20 +515,22 @@ int main()
             }
             break;
         }
-        case 2:// display_og linked list
+        case 2: // display_og linked list
             display_og();
             break;
-        case 3:// reverse linked list
+        case 3: // reverse linked list
             printf("Original linked list:\n");
             display_og();
             reverse_nodes();
             printf("Reversed linked list:\n");
             display_copy();
             break;
-        case 4:// concatenate lists
+        case 4: // concatenate lists
             concate();
             break;
-        case 5:// insert node
+        case 5:
+            palindrome();
+        case 6: // insert node
             while (1)
             {
                 printf("\n======:INSERT OPERATIONS:======\n");
@@ -507,23 +539,23 @@ int main()
                 scanf("%d", &ch);
                 switch (ch)
                 {
-                    case 1:
-                        insert_1st();
-                        break;
-                    case 2:
-                        insert_last();
-                        break;
-                    case 3:
-                        insert_at_position();
-                        break;
-                    case 4:
-                        goto main_menu;
-                    default:
-                        printf("invalid choice\n");
+                case 1:
+                    insert_1st();
+                    break;
+                case 2:
+                    insert_last();
+                    break;
+                case 3:
+                    insert_at_position();
+                    break;
+                case 4:
+                    goto main_menu;
+                default:
+                    printf("invalid choice\n");
                 }
             }
             break;
-        case 6:// delete node
+        case 7: // delete node
             while (1)
             {
                 printf("\n======:DELETE OPERATIONS:======\n");
@@ -532,23 +564,23 @@ int main()
                 scanf("%d", &ch);
                 switch (ch)
                 {
-                    case 1:
-                        delete_1st();
-                        break;
-                    case 2:
-                        delete_last();
-                        break;
-                    case 3:
-                        delete_at_position();
-                        break;
-                    case 4:
-                        goto main_menu;
-                    default:
-                        printf("invalid choice\n");
+                case 1:
+                    delete_1st();
+                    break;
+                case 2:
+                    delete_last();
+                    break;
+                case 3:
+                    delete_at_position();
+                    break;
+                case 4:
+                    goto main_menu;
+                default:
+                    printf("invalid choice\n");
                 }
             }
             break;
-        case 7:// node management
+        case 8: // node management
             while (1)
             {
                 printf("\n======:NODE MANAGEMENT OPERATIONS:======\n");
@@ -557,29 +589,29 @@ int main()
                 scanf("%d", &ch);
                 switch (ch)
                 {
-                    case 1:
-                        count_nodes();
-                        break;
-                    case 2:
-                        sum_nodes();
-                        break;
-                    case 3:
-                        min_node();
-                        break;
-                    case 4:
-                        max_node();
-                        break;
-                    case 5:
-                        printf("the mid point is:%d\n", mid_point_address()->data);
-                        break;
-                    case 6:
-                        goto main_menu;
-                    default:
-                        printf("invalid choice\n");
+                case 1:
+                    count_nodes();
+                    break;
+                case 2:
+                    sum_nodes();
+                    break;
+                case 3:
+                    min_node();
+                    break;
+                case 4:
+                    max_node();
+                    break;
+                case 5:
+                    printf("the mid point is:%d\n", mid_point_address()->data);
+                    break;
+                case 6:
+                    goto main_menu;
+                default:
+                    printf("invalid choice\n");
                 }
             }
             break;
-        case 8:// exit
+        case 9: // exit
             exit(0);
             break;
         default:
