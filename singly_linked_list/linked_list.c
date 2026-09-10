@@ -18,12 +18,12 @@ void display_og()
     else
     {
         temp = START;
-        while (temp->next != NULL)
+        while (temp != NULL)
         {
             printf("%d\t", temp->data);
             temp = temp->next;
         }
-        printf("%d\t", temp->data);
+        //printf("%d\t", temp->data);
     }
 }
 
@@ -37,12 +37,12 @@ void display_copy()
     else
     {
         temp = START_COPY;
-        while (temp->next != NULL)
+        while (temp != NULL)
         {
             printf("%d\t", temp->data);
             temp = temp->next;
         }
-        printf("%d\t", temp->data);
+        //printf("%d\t", temp->data);
     }
 }
 
@@ -353,9 +353,9 @@ void delete_at_position()
     }
 }
 
-struct node *mid_point_address()
+struct node *mid_point_address(struct node *start)
 {
-    struct node *even = START, *odd = START;
+    struct node *even = start, *odd = start;
     while (even != NULL && even->next != NULL)
     {
         even = even->next->next;
@@ -442,7 +442,7 @@ void reverse_nodes()
         last = last->next;
     }
     first = START_COPY;        // stop at the first node of the linked list
-    mid = mid_point_address(); // stop at the middle node of the linked list
+    mid = mid_point_address(START_COPY); // stop at the middle node of the linked list
     for (i = 0; i < len / 2; i++)
     {
         while (mid->next != last) // stop at the middle node of the linked list
@@ -455,7 +455,7 @@ void reverse_nodes()
         last->data = temp;
         first = first->next;       // move first pointer to the next node
         last = mid;                // move last pointer to the middle node
-        mid = mid_point_address(); // move mid pointer to the middle node of the linked list
+        mid = mid_point_address(START_COPY); // move mid pointer to the middle node of the linked list
     }
 }
 
@@ -463,29 +463,29 @@ void palindrome()
 {
     int f = 0;
     struct node *temp, *og = START;
-    printf("h1");
+    //printf("h1");
     reverse_nodes(); // reverse_node create reverse in START_COPY
-    printf("h2");
+    //printf("h2");
     temp = START_COPY;
     while (og->next != NULL)
     {
-        printf("h3");
+        //printf("h3");
         if (og->data == temp->data)
         {
-            printf("h4");
-            og->next;
-            temp->next;
+            //printf("h4");
+            og=og->next;
+            temp=temp->next;
         }
         else
-        {   printf("h5");
+        {   //printf("h5");
             f = 1;
             printf("The list is not palindrom\n");
             break;
         }
     }
-    printf("h6");
+    //printf("h6");
     if (f == 0)
-    {   printf("h7");
+    {   //printf("h7");
         printf("The linked list is palindrom");
     }
 }
@@ -498,7 +498,7 @@ main_menu:
     while (1)
     {
         printf("\n======linked list operations=====\n");
-        printf("1.Create linked list\n2.display linked list\n3.Reverse linked list\n4.Concatenate lists\n5.Check Palindrom\n6.Insert node\n7.Delete node\n8.Node management\n9.Exit");
+        printf("1. Create linked list\n2. Display linked list\n3. Reverse linked list\n4. Concatenate lists\n5. Check Palindrom\n6. Insert node\n7. Delete node\n8. Node management\n9. Exit");
         printf("\n Enter your choice:");
         scanf("%d", &ch);
         switch (ch)
@@ -530,11 +530,12 @@ main_menu:
             break;
         case 5:
             palindrome();
+            break;
         case 6: // insert node
             while (1)
             {
                 printf("\n======:INSERT OPERATIONS:======\n");
-                printf("1.Insert at first\n2.Insert at last\n3.Insert at position\n4.Back to main menu");
+                printf("1. Insert at first\n2. Insert at last\n3. Insert at position\n4. Back to main menu");
                 printf("\nEnter your choice for insertion:");
                 scanf("%d", &ch);
                 switch (ch)
@@ -559,7 +560,7 @@ main_menu:
             while (1)
             {
                 printf("\n======:DELETE OPERATIONS:======\n");
-                printf("1.Delete at first\n2.Delete at last\n3.Delete at position\n4.Back to main menu");
+                printf("1. Delete at first\n2. Delete at last\n3. Delete at position\n4. Back to main menu");
                 printf("\n Enter your choice for deletion:");
                 scanf("%d", &ch);
                 switch (ch)
@@ -584,7 +585,7 @@ main_menu:
             while (1)
             {
                 printf("\n======:NODE MANAGEMENT OPERATIONS:======\n");
-                printf("1.Count nodes\n2.Sum of nodes\n3.Minimum node\n4.Maximum node\n5.Mid point address\n6.Back to main menu");
+                printf("1. Count nodes\n2. Sum of nodes\n3. Minimum node\n4. Maximum node\n5. Mid point address\n6. Back to main menu");
                 printf("\nEnter your choice for node management:");
                 scanf("%d", &ch);
                 switch (ch)
@@ -602,7 +603,7 @@ main_menu:
                     max_node();
                     break;
                 case 5:
-                    printf("the mid point is:%d\n", mid_point_address()->data);
+                    printf("the mid point is:%d\n", mid_point_address(START)->data);
                     break;
                 case 6:
                     goto main_menu;
